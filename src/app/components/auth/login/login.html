@@ -13,3 +13,7 @@
     <button>Login</button>
   </div>
 </form>
+
+@if(errorMessage()){
+<p>{{ errorMessage() }}</p>
+}

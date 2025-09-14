@@ -10,6 +10,7 @@ import { User } from '../models/user';
 export class AuthService {
   private httpClient = inject(HttpClient);
   private user = signal<User | null>(null);
+
   signIn(input: SignInFields): Observable<UserToken> {
     return this.httpClient
       .post<UserToken>(`/api/auth/sign-in`, input)
@@ -17,7 +18,9 @@ export class AuthService {
   }
 
   signUp(input: SignUpFields): Observable<UserToken> {
-    return this.httpClient.post<UserToken>(`/api/auth/sign-up`, input);
+    return this.httpClient
+      .post<UserToken>(`/api/auth/sign-up`, input)
+      .pipe(tap((x) => localStorage.setItem('aromaAtelierToken', x.token)));
   }
 
   getUser(): Observable<User> {
@@ -26,6 +29,8 @@ export class AuthService {
       return of(user);
     }
 
-    return this.httpClient.get<User>('/api/auth/user');
+    return this.httpClient
+      .get<User>('/api/auth/user')
+      .pipe(tap((x) => this.user.set(x)));
   }
 }
