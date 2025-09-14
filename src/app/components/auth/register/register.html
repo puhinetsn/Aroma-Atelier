@@ -1,0 +1,27 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+  <h1>Register</h1>
+  <div>
+    <label>Email:</label>
+    <input name="email" formControlName="email" />
+  </div>
+  <div>
+    <label>First name:</label>
+    <input name="firstName" formControlName="firstName" type="string" />
+  </div>
+  <div>
+    <label>Last name:</label>
+    <input name="lastName" formControlName="lastName" type="string" />
+  </div>
+  <div>
+    <label>Password:</label>
+    <input name="password" formControlName="password" type="password" />
+  </div>
+
+  <div>
+    <button>Register</button>
+  </div>
+</form>
+
+@if(errorMessage()){
+<p>{{ errorMessage() }}</p>
+}
